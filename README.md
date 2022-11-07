@@ -1,4 +1,4 @@
-# Webpack Starter 
+# JournalApp
 
 Este es proyecto permite crear entradas de notas, programado con react/javascript y MUI
 
