@@ -2,6 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 
+// Functional component que crear un formulario para el registro de usuarios
 export const RegisterPage = () => {
   return (
 

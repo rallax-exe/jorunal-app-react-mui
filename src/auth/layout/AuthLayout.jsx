@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 
-
+// Functional component que crear un contenedor para un formulario
 export const AuthLayout = ({ children, title='' }) => {
   return (
     

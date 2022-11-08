@@ -2,7 +2,7 @@ import { TurnedInNot } from '@mui/icons-material';
 import { Drawer, Box, Toolbar, Typography, Divider, List, ListItem, ListItemButton, ListItemIcon, Grid, ListItemText } from '@mui/material';
 
 
-
+// Functional component que crear un sidebar
 export const Sidebar = ({ drawerWidth = 240 }) => {
   return (
     <Box

@@ -3,6 +3,8 @@ import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 
+
+// Functional component que crear un formulario para el login de usuarios
 export const LoginPage = () => {
   return (
 

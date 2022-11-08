@@ -1,7 +1,7 @@
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 
-
+// Functional component que crear un navbar
 export const NavBar = ({ drawerWidth = 240 }) => {
   return (
     <AppBar 
