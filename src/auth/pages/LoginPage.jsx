@@ -1,4 +1,5 @@
-import { useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
@@ -8,8 +9,12 @@ import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
 
 
 
+
 // Functional component que crear un formulario para el login de usuarios
 export const LoginPage = () => {
+
+  //Tomamos los datos de nuestro store
+  const { status } = useSelector( state => state.auth );
 
   // usamos dispatch para poder ejecutar los thunks y los reducers
   const dispatch = useDispatch();
@@ -19,6 +24,15 @@ export const LoginPage = () => {
     email: 'raul@google.com',
     password: '123456',
   });
+
+  /*
+    Memoriza el resultado del status
+    Si el status cambia se vuelve a memorizar,
+    si no, no se vuelve a ejecutar el memo.
+    Si status === 'checking' regresa un
+    valor booleano.
+  */
+  const isAuthenticating = useMemo( () => status === 'checking', [status] );
 
   //Despachamos la accion al thunk 
   const onSubmit = ( event ) => {
@@ -66,6 +80,7 @@ export const LoginPage = () => {
           <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
             <Grid item xs={ 12 } sm={ 6 }>
               <Button 
+                disabled={ isAuthenticating }
                 type="submit" 
                 variant="contained" 
                 fullWidth
@@ -75,6 +90,7 @@ export const LoginPage = () => {
             </Grid>
             <Grid item xs={ 12 } sm={ 6 }>
               <Button 
+                disabled={ isAuthenticating }
                 variant="contained" 
                 fullWidth
                 onClick={ onGoogleSignIn }
