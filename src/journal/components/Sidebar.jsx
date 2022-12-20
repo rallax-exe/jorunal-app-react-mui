@@ -1,9 +1,14 @@
+import { useSelector } from 'react-redux';
 import { TurnedInNot } from '@mui/icons-material';
 import { Drawer, Box, Toolbar, Typography, Divider, List, ListItem, ListItemButton, ListItemIcon, Grid, ListItemText } from '@mui/material';
 
 
 // Functional component que crear un sidebar
 export const Sidebar = ({ drawerWidth = 240 }) => {
+
+    //Toma el nombre del usuario del store
+    const { displayName } = useSelector( state => state.auth );
+
   return (
     <Box
         component='nav'
@@ -21,7 +26,7 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
         >
             <Toolbar>
                 <Typography variant='h6' noWrap componen='div'>
-                    Raul Lara
+                    { displayName }
                 </Typography>
             </Toolbar>
             <Divider />

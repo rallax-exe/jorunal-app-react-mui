@@ -1,4 +1,4 @@
-import { registerUserWithEmailPassword, signInWithGoogle } from '../../firebase/providers';
+import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from '../../firebase/providers';
 import { checkingCredentials, login, logout } from './';
 
 export const checkingAuthentication = ( email, password ) => {
@@ -50,6 +50,42 @@ export const startCreatingUserWithEmailPassword = ({ email, password, displayNam
         if ( !ok ) return dispatch( logout( {errorMessage} ) );
 
         dispatch( login({ uid, displayName, email, photoURL }));
+
+    }
+
+}
+
+
+// Para iniciar sesion con correo y contrasenia
+export const startLoginWithEmailPassword = (  { email, password  }  ) => {
+
+    return async( dispatch ) => {
+
+        // Cambia el estado de checking, esto ayuda a bloquear botones 
+        dispatch( checkingCredentials() );
+
+        // esperamos la respuesta de nuestro provider
+        const result = await loginWithEmailPassword( { email, password } );
+
+        // Si la prop ok esta es false enntonces manda mensaje de error
+        if ( !result.ok ) return dispatch( logout( result ) );
+
+        // Despachamos el login en caso de que la prop ok es true 
+        dispatch( login( result ) );
+
+    }
+
+}
+
+
+export const startLogout = () => {
+
+    return async( dispatch ) => {
+
+        // Cierra sesion en Firebase
+        await logoutFirebase();
+        //Llama la accion del slice para hacer limpieza y cerrar sesion
+        dispatch( logout() );
 
     }
 
