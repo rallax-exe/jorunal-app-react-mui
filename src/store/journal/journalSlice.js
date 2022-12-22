@@ -40,11 +40,32 @@ export const journalSlice = createSlice({
         },
 
         setSaving: ( state ) => {
-            
+            state.isSaving = true;
+            //Hacer mensaje de error
         },
 
-        updateNote: ( state, action ) => {
-            
+        updatedNote: ( state, action ) => { //Payload: note actualizada
+            //Pone isSaving en falso
+            state.isSaving = false;
+            //Recorre todas las notas del arreglo
+            state.notes = state.notes.map( note => {
+                /*
+                    Por cada nota, pregunta si el id guardado
+                    es igual al id que queremos actualizar
+                */
+                if( note.id === action.payload.id ){
+                    /*
+                        Guarda la nueva version de la nota, 
+                        en la iteracion que esta
+                    */
+                    return action.payload;
+                }
+                //Regrea nota por cada iteracion
+                return note;
+
+            });
+
+            //Mostrar mensaje de actualizacion
         },
 
         deleteNoteById: ( state, action ) => {
@@ -64,5 +85,6 @@ export const {
     updateNote,
     deleteNoteById,
     savingNewNote,
+    updatedNote,
     
  } = journalSlice.actions;

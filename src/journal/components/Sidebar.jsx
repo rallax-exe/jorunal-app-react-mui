@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
-import { TurnedInNot } from '@mui/icons-material';
+import { SideBarItem } from './';
 import { Drawer, Box, Toolbar, Typography, Divider, List, ListItem, ListItemButton, ListItemIcon, Grid, ListItemText } from '@mui/material';
+
 
 
 // Functional component que crear un sidebar
@@ -8,6 +9,10 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
 
     //Toma el nombre del usuario del store
     const { displayName } = useSelector( state => state.auth );
+
+    //Toma las notas del store
+    const { notes } = useSelector( state => state.journal );
+
 
   return (
     <Box
@@ -33,18 +38,10 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
 
             <List>
                 {
-                    ['Enero', 'Febrero', 'Marzo', 'Abril'].map( text => (
-                        <ListItem key={ text } disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <TurnedInNot />
-                                </ListItemIcon>
-                                <Grid container>
-                                    <ListItemText primary={ text }/>
-                                    <ListItemText secondary={ 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas odio suscipit nisi exercitationem laudantium.'}/>                                    
-                                </Grid>
-                            </ListItemButton>
-                        </ListItem>
+                    notes.map( note => (
+                        <SideBarItem 
+                            key={ note.id } { ...note }
+                        />
                     ))
                 }
             </List>

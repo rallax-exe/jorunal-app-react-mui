@@ -12,6 +12,16 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
 
     }, [ formState ]);
 
+    //Si el formulario inicial cambia
+    //Aplica cuando el form cambia fuera de este hook
+    useEffect(() => {
+        
+        //Vuelve a actualizar el initial form
+        setFormState( initialForm );
+    
+    }, [initialForm])
+    
+
     //Se ejecuta si cambia el formState
     const isFormValid = useMemo( () => {
         

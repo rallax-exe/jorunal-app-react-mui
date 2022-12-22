@@ -8,6 +8,11 @@ import { useForm } from '../../hooks';
 import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
 
 
+//Tiene un objeto con campos vacios
+const formData = {
+  email: '',
+  password: '',
+}
 
 
 // Functional component que crear un formulario para el login de usuarios
@@ -23,11 +28,8 @@ export const LoginPage = () => {
 
 
 
-  //Llamamos el custom hook 'useForm'
-  const { email, password, onInputChange } = useForm({
-    email: '',
-    password: '',
-  });
+  //Llamamos el custom hook 'useForm' para pasarle los campos que usaremos (formData)
+  const { email, password, onInputChange } = useForm( formData );
 
 
 

@@ -1,7 +1,7 @@
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
 import { loadNotes } from '../../helpers/loadNotes';
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from './';
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setSaving, updatedNote } from './';
 
 
 
@@ -60,5 +60,34 @@ export const startLoadingNotes = ( ) => {
     }
 }
 
+export const startSaveNote = () => {
 
+    return async( dispatch, getState ) => {
+
+        //Desapacha la accion para decir que esta guardando
+        dispatch( setSaving() );
+
+        //Se obtienen el Id de estado de la autenticacion
+        const { uid } = getState().auth;
+
+        //Obtiene la nota activa del store
+        const { active: noteActive } = getState().journal;
+
+        //Exparse todas las props de la noteActive a la constante
+        const noteToFireStore = { ...noteActive };
+        //Elimina una propiedad de un objeto, se borra el id 
+        delete noteToFireStore.id;
+        
+        //La ruta donde queremos hacer los cambios a la nota activa
+        const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ noteActive.id }` );
+
+        //Efectua los cambios en la base de datos
+        await setDoc( docRef, noteToFireStore, { merge: true } );
+
+        //Actualizamos las notas
+        dispatch( updatedNote( noteActive ) );
+
+    }
+
+}
 
