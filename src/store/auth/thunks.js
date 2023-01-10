@@ -1,4 +1,5 @@
 import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from '../../firebase/providers';
+import { clearNotesLogout } from '../journal';
 import { checkingCredentials, login, logout } from './';
 
 export const checkingAuthentication = ( email, password ) => {
@@ -84,9 +85,13 @@ export const startLogout = () => {
 
         // Cierra sesion en Firebase
         await logoutFirebase();
-        //Llama la accion del slice para hacer limpieza y cerrar sesion
+        //Limpia el state del journalSlice
+        dispatch( clearNotesLogout() );
+        //Llama la accion del authSlice para cerrar sesion y hacer limpieza
         dispatch( logout() );
 
     }
 
 }
+
+

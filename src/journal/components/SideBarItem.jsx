@@ -7,7 +7,7 @@ import { setActiveNote } from '../../store/journal';
 
 
 
-export const SideBarItem = ({ title = '', body, id, date, imgURL = [] }) => {
+export const SideBarItem = ({ title = '', body, id, date, imageUrls = [] }) => {
 
     //Memoriaza el titulo de la nota para eliminar caracteres 
     const newTitle = useMemo( () =>{
@@ -31,7 +31,7 @@ export const SideBarItem = ({ title = '', body, id, date, imgURL = [] }) => {
     */
     const onClickNote = () => {
 
-        dispatch( setActiveNote( { title, body, id, date, imgURL } ) );
+        dispatch( setActiveNote( { title, body, id, date, imageUrls } ) );
 
     }
 
